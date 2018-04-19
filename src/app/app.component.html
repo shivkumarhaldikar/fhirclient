@@ -1,5 +1,18 @@
-<div class="container">
-  <h1>My First Bootstrap Page</h1>
-  <p>This is some text.</p>
+<div class="text-center">
+  <h2 class="jumbotron">FHIR Service Test</h2>
 </div>
-<app-patient></app-patient>
+<div class="input-group in">
+  <input type="text" class="form-control" placeholder="Patient Identifier" #pid name="search">
+  <div class="input-group-btn">
+    <button class="btn btn-default" type="submit" (click)="find(pid.value)" ><i class="glyphicon glyphicon-search"></i></button>
+  </div>
+</div>
+<div>
+  <div class="col-md-5">
+    <app-patient></app-patient>
+  </div>
+  <div class="col-md-7">
+    <app-procedures></app-procedures>
+  </div>
+</div>
+

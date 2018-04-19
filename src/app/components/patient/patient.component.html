@@ -1,12 +1,28 @@
 
-<h1>Patient Info</h1>
-<table>
+
+<h2>Patient Demographics</h2>
+<table class="table verticle" *ngIf="show">
+  <tbody>
     <tr>
-        <td>ID</td>
-        <td>{{patient.identifier}}</td>
+        <th>ID</th>
+        <td>{{demographics.identifier}}</td>
     </tr>
     <tr>
-        <td>First Name</td>
-        <td>{{patient.lastName}}</td>
+        <th>Family Name</th>
+        <td>{{demographics.lastName}}</td>
     </tr>
+    <tr>
+        <th>Give Names</th>
+        <td>{{demographics.firstName}}</td>
+    </tr>
+    <tr>
+        <th>Date of Birth</th>
+        <td>{{demographics.dob}}</td>
+    </tr>
+    <tr>
+        <th>Gender</th>
+        <td>{{demographics.gender}}</td>
+    </tr>
+  </tbody>
 </table>
+

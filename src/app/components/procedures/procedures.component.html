@@ -1,0 +1,21 @@
+
+<h2>Patient Procedure Requests</h2>
+<table class="table table-striped" *ngIf="show">
+    <tbody>
+      <tr>
+          <th>Code</th>
+          <th>Code System</th>
+          <th>Code Text</th>
+          <th>Occurance Date</th>
+          <th>Status</th>
+      </tr>
+      <tr *ngFor="let pr of procedureRequest">
+          <td>{{pr.code}}</td>
+          <td>{{pr.codesystem}}</td>
+          <td>{{pr.codetext}}</td>
+          <td>{{pr.occurancedate}}</td>
+          <td>{{pr.status}}</td>
+      </tr>
+    </tbody>
+  </table>
+

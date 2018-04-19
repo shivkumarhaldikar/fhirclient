@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FhirClient } from 'ng-fhir/FhirClient';
-import { Patient } from '../../modules/patient.module';
+import { Demographics } from '../../modules/demographics.module';
+
 
 @Component({
   selector: 'app-patient',
@@ -9,30 +10,37 @@ import { Patient } from '../../modules/patient.module';
 })
 export class PatientComponent implements OnInit {
 
+  show: boolean;
   client: FhirClient;
-  patient: Patient;
+  demographics: Demographics;
   constructor() { }
   private config: any = {
     'baseUrl': 'http://hapi.fhir.org/baseDstu3',
     'credentials': 'same-origin',
   };
   ngOnInit() {
-    this.patient = new Patient();
-    this.client = new FhirClient(this.config);
-    this.client.read({type: 'Patient', id: '717891'}).then(response => {
-      if (response.data) {
-         this.patient.lastName = response.data.name[0].family;
-         this.patient.identifier = response.data.id;
-         this.patient.firstName = '';
-         this.patient.address = '';
-      }
-    }, (err) => {
-      console.log(err);
-    });
-  //  console.log(this.patient);
-  }
+    this.demographics = new Demographics();
+    this.show = false;
+   }
 
-  stringify(obj: any): string {
-    return JSON.stringify(obj, null, '  ');
+  findDemographics(pid: string) {
+    this.show = false;
+    this.demographics = new Demographics();
+    if (pid.length > 0) {
+      this.client = new FhirClient(this.config);
+      this.client.read({type: 'Patient', id: pid }).then(response => {
+        if (response.data) {
+          this.demographics.lastName = response.data.name[0].family;
+          this.demographics.identifier = response.data.id;
+          this.demographics.firstName = response.data.name[0].given[0];
+          this.demographics.address = '';
+          this.demographics.gender = response.data.gender;
+          this.demographics.dob = response.data.birthDate;
+          this.show = true;
+        }
+      }, (err) => {
+      console.log(err);
+      });
+    }
   }
 }
